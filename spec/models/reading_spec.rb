@@ -34,7 +34,6 @@ RSpec.describe Reading, type: :model do
 
     it 'auto generates a sequence id' do
       a_second_reading = FactoryBot.create(:reading, thermostat_id: thermostat.id)
-      binding.pry
       expect(a_second_reading.sequential_id).to eq 2
     end
 
