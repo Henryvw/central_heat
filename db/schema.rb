@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_092048) do
+ActiveRecord::Schema.define(version: 2020_04_27_094122) do
+
+  create_table "readings", force: :cascade do |t|
+    t.integer "thermostat_id", null: false
+    t.integer "sequential_id"
+    t.float "temperature"
+    t.float "humidity"
+    t.float "battery_charge"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["thermostat_id"], name: "index_readings_on_thermostat_id"
+  end
 
   create_table "thermostats", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -19,4 +30,5 @@ ActiveRecord::Schema.define(version: 2020_04_27_092048) do
     t.text "household_token"
   end
 
+  add_foreign_key "readings", "thermostats"
 end
