@@ -5,6 +5,7 @@ module Api
       end
 
       def show
+        @reading = Reading.find(params[:id])
       end
     end
   end
