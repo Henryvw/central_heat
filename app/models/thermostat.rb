@@ -2,6 +2,11 @@ class Thermostat < ApplicationRecord
   has_many :readings
   before_create :set_auth_household_token
 
+  def assemble_stats(start, stop)
+    households_readings = self.readings
+    all_stats_in_timeframe = households_readings.time_frame(start, stop).find_all_measurements
+  end
+
   private
   def set_auth_household_token
     return if household_token.present?

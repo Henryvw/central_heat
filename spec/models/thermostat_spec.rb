@@ -18,4 +18,25 @@ RSpec.describe Thermostat, type: :model do
     new_thermostat = FactoryBot.create(:thermostat)
     expect(new_thermostat.household_token).to eq ('6b8b6c369061498786818825d49ebf06')
   end
+
+  context 'when it receives a specific time frame' do
+    it 'asks its readings to return the relevant stats' do
+      start_time = reading.created_at - 10.days
+      end_time = reading.created_at + 10.days
+
+       stats_hash = {
+          "avg_battery_charge" => 0.5e2,
+          "avg_humidity" => 0.2e2,
+          "avg_temperature" => 0.2e2,
+          "max_battery_charge" => 50.0,
+          "max_humidity" => 20.0,
+          "max_temperature" => 20.0,
+          "min_battery_charge" => 50.0,
+          "min_humidity" => 20.0,
+          "min_temperature" => 20.0
+       }
+
+      expect(thermostat.assemble_stats(start_time, end_time)).to eq(stats_hash)
+    end
+  end
 end
