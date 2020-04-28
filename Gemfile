@@ -35,6 +35,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
+  gem 'timecop'
 end
 
 group :development do
