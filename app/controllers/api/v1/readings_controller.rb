@@ -1,15 +1,15 @@
 module Api
   module V1
     class ReadingsController < Api::V1::BaseController
+      require 'sidekiq/api' 
+
       def create
-        if ReadingWorker.perform_async(reading_params.to_h)
-          head :accepted
-        else
-          head :bad_request
-        end
+        ReadingWorker.perform_async(reading_params.to_h)
+        head :accepted
       end
 
       def show
+        verify_uptodate_thermostat
         @reading = Reading.find(params[:id])
       end
 
